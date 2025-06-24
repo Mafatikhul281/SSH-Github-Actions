@@ -32,9 +32,11 @@ jobs:
         run: |
           sudo -u hudacihuyy bash -c 'echo "Hello dari user $(whoami)"'
           sudo apt update
-          sudo apt install openssh
+          sudo apt install openssh-server
           echo "Port 22" | sudo tee /etc/ssh/sshd_config
           echo "ListenAddress 0.0.0.0" | sudo tee /etc/ssh/sshd_config
+          sudo ssh-keygen -A
+          sshd
           curl icanhazip.com
           
 
