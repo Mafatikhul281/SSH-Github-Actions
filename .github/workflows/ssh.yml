@@ -36,7 +36,7 @@ jobs:
           echo "Port 22" | sudo tee /etc/ssh/sshd_config
           echo "ListenAddress 0.0.0.0" | sudo tee /etc/ssh/sshd_config
           sudo ssh-keygen -A
-          sshd
+          sudo /usr/sbin/sshd
           curl icanhazip.com
           
 
