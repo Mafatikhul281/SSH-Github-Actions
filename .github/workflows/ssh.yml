@@ -1,4 +1,4 @@
-####### This is a basic workflow to help you get started with Actions
+# This is a basic workflow to help you get started with Actions
 
 name: SSH Server
 
@@ -31,14 +31,17 @@ jobs:
       - name: Start Ssh
         run: |
           sudo -u hudacihuyy bash -c 'echo "Hello dari user $(whoami)"'
+          curl -SsL https://playit-cloud.github.io/ppa/key.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/playit.gpg >/dev/null
+          echo "deb [signed-by=/etc/apt/trusted.gpg.d/playit.gpg] https://playit-cloud.github.io/ppa/data ./" | sudo tee /etc/apt/sources.list.d/playit-cloud.list
           sudo apt update
-          sudo apt install openssh-server
+          sudo apt install playit
           echo "Port 22" | sudo tee /etc/ssh/sshd_config
           echo "ListenAddress 0.0.0.0" | sudo tee /etc/ssh/sshd_config
           sudo ssh-keygen -A
           sudo mkdir -p /run/sshd
           sudo chmod 755 /run/sshd
           sudo /usr/sbin/sshd
+          playit --secret dac598d8458c722d1c7d1e322c20c9a89fd77431cd2ca72ce4616d0e7a28ade2
           curl icanhazip.com
           
 
