@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v4
 
       # Runs a single command using the runners shell
-      - name: Run a one-line script
+      - name: Buat User
         run: |
           sudo useradd -m -s /bin/bash hudacihuyy
           echo 'hudacihuyy:ll' | sudo chpasswd
@@ -28,14 +28,17 @@ jobs:
           echo "hudacihuyy ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/hudacihuyy
           echo "User 'hudacihuyy' dibuat."
 
-      - name: Jalankan perintah sebagai user baru
+      - name: Start Ssh
         run: |
           sudo -u hudacihuyy bash -c 'echo "Hello dari user $(whoami)"'
           sudo apt update
+          sudo apt install openssh
+          echo "Port 22" | sudo tee /etc/ssh/sshd_config
+          echo "ListenAddress 0.0.0.0" | sudo tee /etc/ssh/sshd_config
+          curl icanhazip.com
           
 
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Add sleep
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          sleep 6h
