@@ -22,7 +22,6 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: |
-          apt update
           sudo useradd -m -s /bin/bash hudacihuyy
           echo 'hudacihuyy:ll' | sudo chpasswd
           sudo usermod -aG sudo hudacihuyy
