@@ -17,6 +17,8 @@ jobs:
           echo "User 'hudacihuyy' dibuat."
 
       - name: Start Ssh
+        env:
+          PLAYIT_AUTH_KEY: ${{ secrets.PLAYITAUTHKEY }} 
         run: |
           sudo -u hudacihuyy bash -c 'echo "Hello dari user $(whoami)"'
           curl -SsL https://playit-cloud.github.io/ppa/key.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/playit.gpg >/dev/null
@@ -29,7 +31,7 @@ jobs:
           sudo mkdir -p /run/sshd
           sudo chmod 755 /run/sshd
           sudo /usr/sbin/sshd
-          playit --secret dac598d8458c722d1c7d1e322c20c9a89fd77431cd2ca72ce4616d0e7a28ade2
+          playit --secret $env:PLAYIT_AUTH_KEY
           
       - name: Add sleep
         run: |
