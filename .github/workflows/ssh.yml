@@ -30,7 +30,7 @@ jobs:
           sudo mkdir -p /run/sshd
           sudo chmod 755 /run/sshd
           sudo /usr/sbin/sshd
-          playit --secret $env:PLAYIT_AUTH_KEY
+          playit --secret $PLAYIT_AUTH_KEY
           
       - name: Add sleep
         run: |
