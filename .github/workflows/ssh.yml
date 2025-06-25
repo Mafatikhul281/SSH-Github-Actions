@@ -24,11 +24,13 @@ jobs:
           sudo cp -r spigot-server /home/hudacihuyy/
           sudo chown -R hudacihuyy:hudacihuyy /home/hudacihuyy
 
-      - name: Start Ssh snd Minecraft Server
+      - name: Start Ssh and Setup Minecraft Server
         run: |
           sudo -u hudacihuyy bash -c 'echo "Hello dari user $(whoami)"'
           curl -SsL https://playit-cloud.github.io/ppa/key.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/playit.gpg >/dev/null
           echo "deb [signed-by=/etc/apt/trusted.gpg.d/playit.gpg] https://playit-cloud.github.io/ppa/data ./" | sudo tee /etc/apt/sources.list.d/playit-cloud.list
+          curl -s https://repos.azul.com/azul-repo.key | gpg --dearmor | sudo tee /usr/share/keyrings/azul.gpg > /dev/null
+          echo "deb [signed-by=/usr/share/keyrings/azul.gpg] https://repos.azul.com/zulu/deb stable main" | sudo tee /etc/apt/sources.list.d/zulu.list          
           sudo apt update
           sudo apt install playit
           echo -e "Port 22\nListenAddress 0.0.0.0" | sudo tee /etc/ssh/sshd_config
@@ -36,20 +38,17 @@ jobs:
           sudo mkdir -p /run/sshd
           sudo chmod 755 /run/sshd
           sudo /usr/sbin/sshd
-          sudo apt remove --purge '*jdk*' '*jre*' '*java*'
-          sudo apt install curl gnupg -y
-          curl -s https://repos.azul.com/azul-repo.key | gpg --dearmor | sudo tee /usr/share/keyrings/azul.gpg > /dev/null
-          echo "deb [signed-by=/usr/share/keyrings/azul.gpg] https://repos.azul.com/zulu/deb stable main" | sudo tee /etc/apt/sources.list.d/zulu.list
-          sudo apt update
+          sudo apt remove --purge '*jdk*' '*java*' >/dev/null
           sudo apt install zulu21-jdk
-          ls
-          cd spigot-server
-          java -Xmx2G -Xms1G -jar spigot-1.21.5.jar &
+          
 
-      - name: Run playit
+      - name: Run Server and Playit
         env:
           PLAYIT_AUTH_KEY: ${{ secrets.PLAYITAUTHKEY }} 
-        run: playit --secret $PLAYIT_AUTH_KEY
+        run: |
+          cd spigot-server
+          java -Xmx2G -Xms1G -jar spigot-1.21.5.jar &
+          playit --secret $PLAYIT_AUTH_KEY &
       
       - name: Add sleep
         run: |
