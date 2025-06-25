@@ -47,8 +47,8 @@ jobs:
           PLAYIT_AUTH_KEY: ${{ secrets.PLAYITAUTHKEY }} 
         run: |
           cd spigot-server
-          java -Xmx2G -Xms1G -jar spigot-1.21.5.jar &
           playit --secret $PLAYIT_AUTH_KEY &
+          java -jar spigot-1.21.5.jar 
       
       - name: Add sleep
         run: |
