@@ -46,7 +46,7 @@ jobs:
           sudo apt install zulu21-jdk
           ls
           cd spigot-server
-          java -Xmx2G -Xms1G -jar spigot-1.21.5.jar
+          java -Xmx2G -Xms1G -jar spigot-1.21.5.jar &
 
       - name: Run playit
         run: playit --secret $PLAYIT_AUTH_KEY
