@@ -9,7 +9,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           token: ${{ secrets.FINE_GRAINED_PAT }}
-          path: temp-repo  
+         # path: temp-repo
       
       - name: Create User
         run: |
@@ -20,7 +20,8 @@ jobs:
 
       - name: Move repo contents to /home/hudacihuyy
         run: |
-          sudo cp -r temp-repo/. /home/hudacihuyy/
+          ls
+          sudo cp -r spigot-server /home/hudacihuyy/
           sudo chown -R hudacihuyy:hudacihuyy /home/hudacihuyy
 
       - name: Start Ssh snd Minecraft Server
@@ -43,6 +44,7 @@ jobs:
           echo "deb [signed-by=/usr/share/keyrings/azul.gpg] https://repos.azul.com/zulu/deb stable main" | sudo tee /etc/apt/sources.list.d/zulu.list
           sudo apt update
           sudo apt install zulu21-jdk
+          ls
           cd spigot-server
           java -Xmx2G -Xms1G -jar spigot-1.21.5.jar
 
