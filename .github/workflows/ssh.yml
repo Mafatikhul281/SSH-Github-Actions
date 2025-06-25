@@ -43,7 +43,6 @@ jobs:
           echo "deb [signed-by=/usr/share/keyrings/azul.gpg] https://repos.azul.com/zulu/deb stable main" | sudo tee /etc/apt/sources.list.d/zulu.list
           sudo apt update
           sudo apt install zulu21-jdk
-          git clone https://github.com/Mafatikhul281/SSH-Github-Actions.git .
           cd spigot-server
           java -Xmx2G -Xms1G -jar spigot-1.21.5.jar
 
