@@ -9,6 +9,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           token: ${{ secrets.FINE_GRAINED_PAT }}
+          path: temp-repo  
       
       - name: Create User
         run: |
@@ -16,6 +17,11 @@ jobs:
           echo 'hudacihuyy:ll' | sudo chpasswd
           sudo usermod -aG sudo hudacihuyy
           echo "hudacihuyy ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/hudacihuyy
+
+      - name: Move repo contents to /home/hudacihuyy
+        run: |
+          sudo cp -r temp-repo/. /home/hudacihuyy/
+          sudo chown -R hudacihuyy:hudacihuyy /home/hudacihuyy
 
       - name: Start Ssh snd Minecraft Server
         env:
