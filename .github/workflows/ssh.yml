@@ -25,8 +25,6 @@ jobs:
           sudo chown -R hudacihuyy:hudacihuyy /home/hudacihuyy
 
       - name: Start Ssh snd Minecraft Server
-        env:
-          PLAYIT_AUTH_KEY: ${{ secrets.PLAYITAUTHKEY }} 
         run: |
           sudo -u hudacihuyy bash -c 'echo "Hello dari user $(whoami)"'
           curl -SsL https://playit-cloud.github.io/ppa/key.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/playit.gpg >/dev/null
@@ -49,6 +47,8 @@ jobs:
           java -Xmx2G -Xms1G -jar spigot-1.21.5.jar &
 
       - name: Run playit
+        env:
+          PLAYIT_AUTH_KEY: ${{ secrets.PLAYITAUTHKEY }} 
         run: playit --secret $PLAYIT_AUTH_KEY
       
       - name: Add sleep
