@@ -24,7 +24,7 @@ jobs:
         run: |
           sudo -u hudacihuyy bash -c 'echo "Aku $(whoami)"'
           sudo apt update
-          sudo apt install tigervnc-server
+          sudo apt install tigervnc
           sudo apt install xfce4
           (type -p wget >/dev/null || (sudo apt update && sudo apt install wget -y)) \
             && sudo mkdir -p -m 755 /etc/apt/keyrings \
