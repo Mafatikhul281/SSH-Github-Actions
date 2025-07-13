@@ -29,8 +29,8 @@ jobs:
           sudo apt install openbox
           sudo mkdir /home/runner/.vnc
           sudo touch /home/runner/.vnc/passwd
-          vncpasswd -f <<< "rahasia123" > /home/runner/.vnc/passwd
-          chmod 600 ~/.vnc/passwd
+          sudo vncpasswd -f <<< "rahasia123" > /home/runner/.vnc/passwd
+          sudo chmod 600 ~/.vnc/passwd
           gh auth login --with-token $GH_TOKEN
           gh repo clone novnc/noVNC
           cd noVNC
