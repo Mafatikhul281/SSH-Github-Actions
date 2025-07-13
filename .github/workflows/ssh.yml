@@ -22,7 +22,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          sudo -u hudacihuyy
+          su - hudacihuyy
           sudo apt update
           sudo apt install tigervnc-server
           sudo apt install xfce4
