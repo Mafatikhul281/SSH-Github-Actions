@@ -39,7 +39,8 @@ jobs:
             #&& sudo apt update \
             #&& sudo apt install gh -y
           sudo apt install openbox
-          sudo printf "password\npassword\n\n" | vncpasswd
+          vncpasswd -f <<< "rahasia123" > ~/.vnc/passwd
+          chmod 600 ~/.vnc/passwd
           gh auth login --with-token $GH_TOKEN
           gh repo clone novnc/noVNC
           cd noVNC
