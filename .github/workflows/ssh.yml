@@ -9,24 +9,10 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.FINE_GRAINED_PAT }}
-         # path: temp-repo
-      
-      - name: Create User
-        run: |
-          sudo useradd -m -s /bin/bash hudacihuyy
-          echo 'hudacihuyy:ll' | sudo chpasswd
-          sudo usermod -aG sudo hudacihuyy
-          echo "hudacihuyy ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/hudacihuyy
-
       - name: Cihuyy
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          sudo -s
-          su - hudacihuyy
           whoami
           sudo apt update
           sudo apt install tigervnc-standalone-server -y
@@ -41,7 +27,7 @@ jobs:
             #&& sudo apt update \
             #&& sudo apt install gh -y
           sudo apt install openbox
-          mkdir .vnc
+          sudo mkdir ./.vnc
           vncpasswd -f <<< "rahasia123" > ~/.vnc/passwd
           chmod 600 ~/.vnc/passwd
           gh auth login --with-token $GH_TOKEN
