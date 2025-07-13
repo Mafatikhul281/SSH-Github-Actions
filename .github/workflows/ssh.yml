@@ -26,6 +26,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           sudo -u hudacihuyy bash -c 'echo "Aku $(whoami)"'
+          whoami
+          cd /home/hudacihuyy
           sudo apt update
           sudo apt install tigervnc-standalone-server -y
           #sudo apt install xfce4 -y
@@ -39,6 +41,7 @@ jobs:
             #&& sudo apt update \
             #&& sudo apt install gh -y
           sudo apt install openbox
+          mkdir .vnc
           vncpasswd -f <<< "rahasia123" > ~/.vnc/passwd
           chmod 600 ~/.vnc/passwd
           gh auth login --with-token $GH_TOKEN
