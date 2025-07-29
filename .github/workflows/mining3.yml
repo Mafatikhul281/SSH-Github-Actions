@@ -1,4 +1,4 @@
-name: Mining Verus 1
+name: Mining Verus 3
 on:
   workflow_dispatch:
   schedule:
