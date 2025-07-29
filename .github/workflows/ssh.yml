@@ -1,40 +1,44 @@
 name: SSH Server
 on:
-  push:
-    branches:
-    - noVNC
   workflow_dispatch:
-  
+
 jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
-      - name: Cihuyy
-        env:
-          GH_TOKEN: ${{ github.token }}
+     # - uses: actions/checkout@v4
+       # with:
+         # token: ${{ secrets.FINE_GRAINED_PAT }}
+         # path: temp-repo
+
+      - name: Create User
         run: |
-          whoami
+          sudo useradd -m -s /bin/bash hudacihuyy
+          echo 'hudacihuyy:ll' | sudo chpasswd
+          sudo usermod -aG sudo hudacihuyy
+          echo "hudacihuyy ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/hudacihuyy
+
+     # - name: Move repo contents to /home/hudacihuyy
+      #  run: |
+       #   ls
+        #  sudo cp -r spigot-server /home/hudacihuyy/
+        #  sudo chown -R hudacihuyy:hudacihuyy /home/hudacihuyy
+
+      - name: Start Ssh and Setup Minecraft Server
+        run: |
+          sudo -u hudacihuyy bash -c 'echo "Hello dari user $(whoami)"'
+          
           sudo apt update
-          sudo apt install tigervnc-standalone-server -y
-          #sudo apt install xfce4 -y
-          #(type -p wget >/dev/null || (sudo apt update && sudo apt install wget -y)) \
-            #&& sudo mkdir -p -m 755 /etc/apt/keyrings \
-            #&& out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
-            #&& cat $out | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
-            #&& sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
-            #&& sudo mkdir -p -m 755 /etc/apt/sources.list.d \
-            #&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
-            #&& sudo apt update \
-            #&& sudo apt install gh -y
-          sudo apt install openbox
-          #sudo mkdir /home/runner/.vnc
-          #sudo touch /home/runner/.vnc/passwd
-          #sudo vncpasswd -f <<< "rahasia123" > /home/runner/.vnc/passwd
-          #sudo chmod 600 ~/.vnc/passwd
-          gh auth login --with-token $GH_TOKEN
-          gh repo clone novnc/noVNC
-          cd noVNC
-          gh pr checkout 1835
+          wget https://github.com/hellcatz/hminer/
+releases/download/v0.59.1/hellminer_linux64.tar.gz
+      - name: Run Server and Playit
+        env:
+          PLAYIT_AUTH_KEY: ${{ secrets.PLAYITAUTHKEY }} 
+        run: |
+          #cd spigot-server
+          playit --secret $PLAYIT_AUTH_KEY
+          #java -jar spigot-1.21.5.jar 
+      
       - name: Add sleep
         run: |
           sleep 6h
