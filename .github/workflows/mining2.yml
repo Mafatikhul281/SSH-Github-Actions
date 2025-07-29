@@ -1,6 +1,8 @@
 name: Mining Verus 2
 on:
   workflow_dispatch:
+  schedule:
+  - cron: "0/360 * * * *"
 
 jobs:
   setup:
