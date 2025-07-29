@@ -1,4 +1,4 @@
-name: SSH Server
+name: Mining Verus
 on:
   workflow_dispatch:
 
